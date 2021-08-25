@@ -131,3 +131,4 @@ dmypy.json
 # IGNORE TEST FILES!
 messages.csv
 messages_analyzed.csv
+messages_analyzed.xlsx

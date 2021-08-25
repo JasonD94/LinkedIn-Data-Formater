@@ -68,6 +68,11 @@ messagesDF["DATE"] = pd.to_datetime(messagesDF["DATE"])
 # Dictionary for ezpz printing
 mapDates = {}
 
+
+# Might be cool to group by year as well
+mapYearDates = {}
+
+
 # Pandas dataframe for exporting back to CSV
 exportedDF = pd.DataFrame(columns = ["YEAR", "MONTH", "COUNT"])
 
@@ -87,6 +92,13 @@ for index, row in messagesDF.iterrows():
     else:
         mapDates[datePart] = 1
 
+    # Also check the mapYearDates one too for YEAR : Count
+    yearDatePart = dateSplit[0]
+    if yearDatePart in mapYearDates:
+        mapYearDates[yearDatePart] += 1
+    else:
+        mapYearDates[yearDatePart] = 1
+
 # Generate pandas Dataframe to export back to CSV for later looking
 for date in sorted(mapDates):
     dateSplit = date.split("_")
@@ -99,6 +111,13 @@ for date in sorted(mapDates):
 print("YEAR_MONTH: COUNT")
 for date in sorted(mapDates):
     print(date + ": " + str(mapDates[date]))
+
+print("\n")
+
+# Also print YEAR: Count too
+print("YEAR: COUNT")
+for year in sorted(mapYearDates):
+    print(year + ": " + str(mapYearDates[year]))
 
 # What's inside exportedDF?
 # Looks good! Export it to CSV now.
