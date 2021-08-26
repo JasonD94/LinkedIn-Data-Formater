@@ -75,13 +75,6 @@ for index, row in messagesDF.iterrows():
     dateSplit = str(row["DATE"]).split("-")
     datePart = dateSplit[0] + "/" + dateSplit[1]
 
-    # See if the given YEAR_MONTH is inside our map.
-    if datePart in mapDates:
-        mapDates[datePart] += 1
-
-    else:
-        mapDates[datePart] = 1
-
     # Also check the mapYearDates one too for YEAR : Count
     yearDatePart = dateSplit[0]
     if yearDatePart in mapYearDates:
@@ -102,6 +95,24 @@ for index, row in messagesDF.iterrows():
         inboxYearDates[folderDataPart] += 1
     else:
         inboxYearDates[folderDataPart] = 1
+
+    #
+    #   Thinking we just filter out spam/archive messages for the main analyzed csv
+    #   Reason being, looking at the inbox_analyzed csv, there's something like ~50 messages
+    #   that I marked spam/archived. Might as well ignore those, since they weren't useful
+    #   LinkedIn messages after all!
+    #
+    if folder == "SPAM" or folder == "ARCHIVE":
+        # Skip counting these ones. In the future, perhaps add a flag of sorts
+        # to let people decide for themselves to count these messages or not.
+        continue
+
+    # See if the given YEAR_MONTH is inside our map.
+    if datePart in mapDates:
+        mapDates[datePart] += 1
+
+    else:
+        mapDates[datePart] = 1
     
 
 # Generate pandas Dataframe to export back to CSV for later looking
