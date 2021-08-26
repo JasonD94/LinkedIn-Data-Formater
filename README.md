@@ -3,6 +3,7 @@ Given a CSV file from LinkedIn's data export, this will be some code to format i
 
 ## Usage:
 * Requires pandas be installed:
+
 ``pip install pandas``
 
 * Git clone the repo somewhere and drop in the "messages.csv" file you get from the LinkedIn Data Privacy page found [here](https://www.linkedin.com/psettings/member-data)
@@ -13,4 +14,4 @@ Given a CSV file from LinkedIn's data export, this will be some code to format i
 
 * Example of a graph I generated with Excel's chart feature:
 
->> TODO: insert an image of the graph here <<
+![](imgs/example_excel_chart.png)
