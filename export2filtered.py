@@ -34,26 +34,13 @@ try:
 except:
     print("\n\n!!!Error: you need to provide me with a messages.csv file from LinkedIn for me to parse!!\n\n")
 
-# Debug - what's df look like?
-#print(messagesDF)
 
 # Filter for unique senders
 messagesDF = messagesDF.drop_duplicates(subset = ["FROM"])
 
-# Debug - what's df look like?
-#print(messagesDF)
-#messagesDF.info()
-
 # Convert the "DATE" column from a string(object) to a datetime,
 # so we can use groupbys later
 messagesDF["DATE"] = pd.to_datetime(messagesDF["DATE"])
-
-#print(messagesDF.head())
-#print(messagesDF)
-
-#messagesDF.info()
-
-#messagesDF["DATE"] = messagesDF["DATE"].astype('datetime64[ns]')
 
 # Report should be something like:
 # Message Count
@@ -66,25 +53,18 @@ messagesDF["DATE"] = pd.to_datetime(messagesDF["DATE"])
 # Only ~500 rows at the moment so probably fine and just as fast as whatever
 # pandas does under the hood.
 #monthsDF = messagesDF["DATE"].groupby(pd.Grouper(freq="M"))
-#print(monthsDF)
-
 #monthsDF = messagesDF["DATE"].resample("M", how='sum')
 
 # Dictionary for ezpz printing
 mapDates = {}
-
-
 # Might be cool to group by year as well
 mapYearDates = {}
-
 
 # Pandas dataframe for exporting back to CSV
 exportedDF = pd.DataFrame(columns = ["YEAR", "MONTH", "MONTH_YEAR", "COUNT"])
 
 # Group it ourselves based on year and month.
 for index, row in messagesDF.iterrows():
-    #print(row["DATE"], row["FROM"])
-    #print(str(row["DATE"]).split("-"))
 
     # Split the date, then we can group by YEAR_MONTH
     dateSplit = str(row["DATE"]).split("-")
@@ -129,10 +109,6 @@ print("\n")
 print("YEAR: COUNT")
 for year in sorted(mapYearDates):
     print(year + ": " + str(mapYearDates[year]))
-
-# What's inside exportedDF?
-# Looks good! Export it to CSV now.
-#print(exportedDF)
 
 # This is in a try/except because if the file is open,
 # you'll get a permission denied error :-)
