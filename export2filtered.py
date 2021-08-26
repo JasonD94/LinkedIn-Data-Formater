@@ -24,7 +24,7 @@ import pandas as pd
 """
 
 # the fields we care about
-fields = ["FROM", "DATE"]
+fields = ["FROM", "DATE", "FOLDER"]
 
 # Messages.csv is the default export name for LinkedIn Messages
 messagesDF = None
@@ -61,9 +61,12 @@ messagesDF["DATE"] = pd.to_datetime(messagesDF["DATE"])
 mapDates = {}
 # Might be cool to group by year as well
 mapYearDates = {}
+# Filter by spam vs archive vs inbox too
+inboxYearDates = {}
 
-# Pandas dataframe for exporting back to CSV
+# Pandas dataframes for exporting back to CSV
 exportedDF = pd.DataFrame(columns = ["YEAR", "MONTH", "MONTH_YEAR", "COUNT"])
+exporteFolderdDF = pd.DataFrame(columns = ["YEAR", "MONTH", "MONTH_YEAR", "COUNT", "FOLDER"])
 
 # Group it ourselves based on year and month.
 for index, row in messagesDF.iterrows():
@@ -86,6 +89,21 @@ for index, row in messagesDF.iterrows():
     else:
         mapYearDates[yearDatePart] = 1
 
+    # This one will check for the FOLDER value. The following values exist in my exported data:
+    # INBOX
+    # ARCHIVE
+    # SPAM
+    # We'll group by those 3 for the counts and break it out by just Inbox in the report in
+    # the console, but we'll also save off that value for later too
+    folder = str(row["FOLDER"])
+    folderDataPart = dateSplit[0] + "/" + dateSplit[1] + "_" + folder
+    
+    if folderDataPart in inboxYearDates:
+        inboxYearDates[folderDataPart] += 1
+    else:
+        inboxYearDates[folderDataPart] = 1
+    
+
 # Generate pandas Dataframe to export back to CSV for later looking
 for date in sorted(mapDates):
     dateSplit = date.split("/")
@@ -98,6 +116,19 @@ for date in sorted(mapDates):
     exportedDF = exportedDF.append({'YEAR': year, 'MONTH': month, 'MONTH_YEAR': month_year,
                                     'COUNT': mapDates[date]}, ignore_index=True)
 
+# Export a second csv with counts by MONTH_YEAR and FOLDER
+# TODO: merge these into one single CSV file, or perhaps separate worksheets?
+#       maybe pandas lets us export to .xls or .xlsx
+
+# For giggles, how many spam vs inbox messages did I get each year too?
+# Should try to sum that up too
+for dateFolder in sorted(inboxYearDates):
+    folderDataPart = dateFolder.replace("/", "_").split("_")
+
+    print(folderDataPart, end=" ")
+    print(inboxYearDates[dateFolder])
+
+print("\n")
 
 # Now mapDates should have a nice count for us!
 # Let's pretty print it and sort it too
