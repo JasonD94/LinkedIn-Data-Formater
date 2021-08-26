@@ -129,6 +129,9 @@ dmypy.json
 .pyre/
 
 # IGNORE TEST FILES!
-*.csv
-*.xls
-*.xlsx
+messages.csv
+messages_analyzed.csv
+messages_analyzed.xlsx
+
+.DS_STORE
+Basic_LinkedInDataExport*/

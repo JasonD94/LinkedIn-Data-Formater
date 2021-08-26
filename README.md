@@ -6,6 +6,8 @@ Given a CSV file from LinkedIn's data export, this will be some code to format i
 
 ``pip install pandas``
 
+``python export2filtered.py <path to file to parse>``
+
 * Git clone the repo somewhere and drop in the "messages.csv" file you get from the LinkedIn Data Privacy page found [here](https://www.linkedin.com/psettings/member-data)
 
 * Run the script with Idle or another Python interpreter
