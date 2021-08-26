@@ -27,14 +27,19 @@ import sys
 # the fields we care about
 fields = ["FROM", "DATE", "FOLDER"]
 
-filePth = sys.argv[1]
+filePth = None
+
+try:
+    filePth = sys.argv[1]
+except:
+    print("No cmd args found! Running with default messages.csv file instead.\n")
 
 # Messages.csv is the default export name for LinkedIn Messages
 messagesDF = None
 
 try:
-    print(filePth)
     if filePth:
+        print(filePth)
         messagesDF = pd.read_csv(filePth, usecols=fields)
     else:
         messagesDF = pd.read_csv("messages.csv", usecols=fields)
