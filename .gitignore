@@ -128,7 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# IGNORE TEST FILES!
+# ignore cvs and excel
+.DS_STORE
 *.csv
 *.xls
 *.xlsx

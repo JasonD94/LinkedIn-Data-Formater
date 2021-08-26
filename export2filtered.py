@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 
 """
         This script will automagically generate a nice little report for LinkedIn
@@ -26,11 +27,17 @@ import pandas as pd
 # the fields we care about
 fields = ["FROM", "DATE", "FOLDER"]
 
+filePth = sys.argv[1]
+
 # Messages.csv is the default export name for LinkedIn Messages
 messagesDF = None
 
 try:
-    messagesDF = pd.read_csv("messages.csv", usecols=fields)
+    print(filePth)
+    if filePth:
+        messagesDF = pd.read_csv(filePth, usecols=fields)
+    else:
+        messagesDF = pd.read_csv("messages.csv", usecols=fields)
 except:
     print("\n\n!!!Error: you need to provide me with a messages.csv file from LinkedIn for me to parse!!\n\n")
 
