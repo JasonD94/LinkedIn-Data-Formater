@@ -66,7 +66,7 @@ inboxYearDates = {}
 
 # Pandas dataframes for exporting back to CSV
 exportedDF = pd.DataFrame(columns = ["YEAR", "MONTH", "MONTH_YEAR", "COUNT"])
-exporteFolderdDF = pd.DataFrame(columns = ["YEAR", "MONTH", "MONTH_YEAR", "COUNT", "FOLDER"])
+exportedFolderdDF = pd.DataFrame(columns = ["YEAR", "MONTH", "MONTH_YEAR", "FOLDER", "COUNT"])
 
 # Group it ourselves based on year and month.
 for index, row in messagesDF.iterrows():
@@ -120,13 +120,24 @@ for date in sorted(mapDates):
 # TODO: merge these into one single CSV file, or perhaps separate worksheets?
 #       maybe pandas lets us export to .xls or .xlsx
 
+
 # For giggles, how many spam vs inbox messages did I get each year too?
 # Should try to sum that up too
+# Or can do that easily in Excel with this exported!
+
 for dateFolder in sorted(inboxYearDates):
     folderDataPart = dateFolder.replace("/", "_").split("_")
+    year = folderDataPart[0]
+    month = folderDataPart[1]
+    month_year = year + "_" + month
+    folder = folderDataPart[2]
 
-    print(folderDataPart, end=" ")
+    # Some debug prints; TODO: delete these when done
+    print(year, month, folder, end=" ")
     print(inboxYearDates[dateFolder])
+
+    exportedFolderdDF = exportedFolderdDF.append({'YEAR': year, 'MONTH': month, 'MONTH_YEAR': month_year,
+                                    'FOLDER': folder, 'COUNT': inboxYearDates[dateFolder]}, ignore_index=True)
 
 print("\n")
 
@@ -151,4 +162,8 @@ try:
 except:
     print("\n\n¡¡¡ERROR: Close the damn file you dummy!!!\n\n")
 
+try:
+    exportedFolderdDF.to_csv('messages_inbox_analyzed.csv', sep=",")
 
+except:
+    print("\n\nERROR: something went wrong exporting messages_inbox_analyzed.csv!")

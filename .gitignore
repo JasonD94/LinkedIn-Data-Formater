@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # IGNORE TEST FILES!
-messages.csv
-messages_analyzed.csv
-messages_analyzed.xlsx
+*.csv
+*.xls
+*.xlsx
