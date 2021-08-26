@@ -132,3 +132,6 @@ dmypy.json
 messages.csv
 messages_analyzed.csv
 messages_analyzed.xlsx
+
+.DS_STORE
+Basic_LinkedInDataExport*/
