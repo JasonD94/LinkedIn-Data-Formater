@@ -128,10 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# IGNORE TEST FILES!
-messages.csv
-messages_analyzed.csv
-messages_analyzed.xlsx
-
+# ignore cvs and excel
 .DS_STORE
-Basic_LinkedInDataExport*/
+*.csv
+*.xls
+*.xlsx
