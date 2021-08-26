@@ -34,6 +34,8 @@ try:
 except:
     print("\n\n!!!Error: you need to provide me with a messages.csv file from LinkedIn for me to parse!!\n\n")
 
+    # Ye this is apparently not recommended but it doesn't quit the Idle shell on my Windows box so...
+    raise SystemExit
 
 # Filter for unique senders
 messagesDF = messagesDF.drop_duplicates(subset = ["FROM"])
