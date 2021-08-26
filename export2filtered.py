@@ -27,7 +27,12 @@ import pandas as pd
 fields = ["FROM", "DATE"]
 
 # Messages.csv is the default export name for LinkedIn Messages
-messagesDF = pd.read_csv("messages.csv", usecols=fields)
+messagesDF = None
+
+try:
+    messagesDF = pd.read_csv("messages.csv", usecols=fields)
+except:
+    print("\n\n!!!Error: you need to provide me with a messages.csv file from LinkedIn for me to parse!!\n\n")
 
 # Debug - what's df look like?
 #print(messagesDF)
@@ -74,7 +79,7 @@ mapYearDates = {}
 
 
 # Pandas dataframe for exporting back to CSV
-exportedDF = pd.DataFrame(columns = ["YEAR", "MONTH", "COUNT"])
+exportedDF = pd.DataFrame(columns = ["YEAR", "MONTH", "MONTH_YEAR", "COUNT"])
 
 # Group it ourselves based on year and month.
 for index, row in messagesDF.iterrows():
@@ -83,7 +88,7 @@ for index, row in messagesDF.iterrows():
 
     # Split the date, then we can group by YEAR_MONTH
     dateSplit = str(row["DATE"]).split("-")
-    datePart = dateSplit[0] + "_" + dateSplit[1]
+    datePart = dateSplit[0] + "/" + dateSplit[1]
 
     # See if the given YEAR_MONTH is inside our map.
     if datePart in mapDates:
@@ -101,9 +106,15 @@ for index, row in messagesDF.iterrows():
 
 # Generate pandas Dataframe to export back to CSV for later looking
 for date in sorted(mapDates):
-    dateSplit = date.split("_")
+    dateSplit = date.split("/")
 
-    exportedDF = exportedDF.append({'YEAR': dateSplit[0], 'MONTH': dateSplit[1], 'COUNT': mapDates[date]}, ignore_index=True)
+    # dateSplit[0] == year, dateSplit[1] == month
+    year = dateSplit[0]
+    month = dateSplit[1]
+    month_year = str(dateSplit[0]) + "/" + str(dateSplit[1])
+
+    exportedDF = exportedDF.append({'YEAR': year, 'MONTH': month, 'MONTH_YEAR': month_year,
+                                    'COUNT': mapDates[date]}, ignore_index=True)
 
 
 # Now mapDates should have a nice count for us!
@@ -123,6 +134,12 @@ for year in sorted(mapYearDates):
 # Looks good! Export it to CSV now.
 #print(exportedDF)
 
-exportedDF.to_csv('messages_analyzed.csv', sep=',')
+# This is in a try/except because if the file is open,
+# you'll get a permission denied error :-)
+try:
+    exportedDF.to_csv('messages_analyzed.csv', sep=',')
+
+except:
+    print("\n\n¡¡¡ERROR: Close the damn file you dummy!!!\n\n")
 
 
