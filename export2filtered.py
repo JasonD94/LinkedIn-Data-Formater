@@ -132,9 +132,10 @@ for date in sorted(mapDates):
     dateSplit = date.split("/")
 
     # dateSplit[0] == year, dateSplit[1] == month
+    # month_year will become something like "08/01/2021", which hopefully Excel likes
     year = dateSplit[0]
     month = dateSplit[1]
-    month_year = str(dateSplit[0]) + "/" + str(dateSplit[1])
+    month_year = str(month) + "/01/" + str(year)
 
     exportedDF = exportedDF.append({'YEAR': year, 'MONTH': month, 'MONTH_YEAR': month_year,
                                     'COUNT': mapDates[date]}, ignore_index=True)
