@@ -20,3 +20,4 @@ Example of some graphs I generated with an Excel chart + the pandas generated cs
 
 ![](imgs/example_excel_chart_messages.png)
 ![](imgs/example_excel_chart_connections.png)
+![](imgs/example_excel_chart_jobs.png)
