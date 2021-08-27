@@ -6,7 +6,7 @@ import sys, datetime
     based on an input csv called "Job Applications.csv" that you can get
     from the LinkedIn Data Privacy page
 """
-default_csv_filename = "Job Applications.csv"
+default_csv_filename = "csv/Job Applications.csv"
 app_date_column_name = "Application Date"
 
 # the fields we care about
@@ -69,6 +69,6 @@ for date in sorted(applicationDates):
 
 # Should be good to export exportedConnectionsDF to csv now
 try:
-    exportedjobsAppsDF.to_csv("job_apps_analyzed.csv", sep=",")
+    exportedjobsAppsDF.to_csv("analyzed/job_apps_analyzed.csv", sep=",")
 except:
     print("\n\n¡¡¡ERROR: Close the damn file you dummy!!!\n\n")

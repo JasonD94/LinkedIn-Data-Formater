@@ -42,7 +42,7 @@ try:
         print(filePth)
         messagesDF = pd.read_csv(filePth, usecols=fields)
     else:
-        messagesDF = pd.read_csv("messages.csv", usecols=fields)
+        messagesDF = pd.read_csv("csv/messages.csv", usecols=fields)
 except:
     print("\n\n!!!Error: you need to provide me with a messages.csv file from LinkedIn for me to parse!!\n\n")
 
@@ -181,13 +181,13 @@ for year in sorted(mapYearDates):
 # This is in a try/except because if the file is open,
 # you'll get a permission denied error :-)
 try:
-    exportedDF.to_csv('messages_analyzed.csv', sep=',')
+    exportedDF.to_csv('analyzed/messages_analyzed.csv', sep=',')
 
 except:
     print("\n\n¡¡¡ERROR: Close the damn file you dummy!!!\n\n")
 
 try:
-    exportedFolderdDF.to_csv('messages_inbox_analyzed.csv', sep=",")
+    exportedFolderdDF.to_csv('analyzed/messages_inbox_analyzed.csv', sep=",")
 
 except:
     print("\n\nERROR: something went wrong exporting messages_inbox_analyzed.csv!")

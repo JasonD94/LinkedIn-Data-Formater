@@ -26,7 +26,7 @@ try:
         print(filePth)
         connectionsDF = pd.read_csv(filePth, usecols=fields, skiprows=3)
     else:
-        connectionsDF = pd.read_csv("Connections.csv", usecols=fields, skiprows=3)
+        connectionsDF = pd.read_csv("csv/Connections.csv", usecols=fields, skiprows=3)
 except Exception as e:
     print("\n\n!!!Error: you need to provide me with a Connections.csv file from LinkedIn for me to parse!!\n\n")
     print(e)
@@ -72,7 +72,7 @@ for date in sorted(connectionsDates):
 
 # Should be good to export exportedConnectionsDF to csv now
 try:
-    exportedConnectionsDF.to_csv("connections_analyzed.csv", sep=",")
+    exportedConnectionsDF.to_csv("analyzed/connections_analyzed.csv", sep=",")
 except:
     print("\n\n¡¡¡ERROR: Close the damn file you dummy!!!\n\n")
 
