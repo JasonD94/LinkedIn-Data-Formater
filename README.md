@@ -6,9 +6,17 @@ Requires pandas be installed:
 
 ``pip install pandas``
 
-``python export2filtered.py <path to file to parse>``
+``python messages2count.py <path to file to parse>``
 
-(note: providing a file path is optional - you can just drop the messages.csv file into the git repo and the export2filtered.py script will choose it by default. this assumes you make a "csv" directory to drop them into.)
+(note: providing a file path is optional - you can just drop the messages.csv file into the git repo and the messages2count.py script will choose it by default. this assumes you make a "csv" directory to drop them into.)
+
+There are also a few other scripts you can try:
+
+* connections2mine.py -> provide the "Connections.csv" file to get a count of connections over time
+
+* experience2years.py -> provide the "Positions.csv" file to get a count of your years of experience
+
+* jobapps2mine.py -> provide the "Job Applications.csv" file found under Jobs/ inside the full export to get a count of the job applications you sent on LinkedIn over time
 
 Git clone the repo somewhere and drop in the "messages.csv" file you get from the LinkedIn Data Privacy page found [here](https://www.linkedin.com/psettings/member-data)
 
