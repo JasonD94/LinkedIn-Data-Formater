@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+import matplotlib.pyplot as plt
 
 """
         This script will automagically generate a nice little report for LinkedIn
@@ -108,16 +109,25 @@ for index, row in messagesDF.iterrows():
     else:
         inboxYearDates[folderDataPart] = 1
 
+    """
+        TODO: handle archive and spam messages some how
+        I've commented out the filtering (the " lines) of these because lately I've been arching/spamming
+        a lot of messages, but I'm still curious what my 'total' message count is per month
+        I think in the future, these should be counted for 'total' messages but I should
+        also filter them in a second count of 'useful' messages.
+        Also, could perhaps graph both for giggles. Like have three lines for archive, spam
+        and not filtered messages (I think these are just 'INBOX')
+    """
     #
     #   Thinking we just filter out spam/archive messages for the main analyzed csv
     #   Reason being, looking at the inbox_analyzed csv, there's something like ~50 messages
     #   that I marked spam/archived. Might as well ignore those, since they weren't useful
     #   LinkedIn messages after all!
     #
-    if folder == "SPAM" or folder == "ARCHIVE":
-        # Skip counting these ones. In the future, perhaps add a flag of sorts
-        # to let people decide for themselves to count these messages or not.
-        continue
+    """if folder == "SPAM" or folder == "ARCHIVE":"""
+    # Skip counting these ones. In the future, perhaps add a flag of sorts
+    # to let people decide for themselves to count these messages or not.
+    """continue"""
 
     # See if the given YEAR_MONTH is inside our map.
     if datePart in mapDates:
@@ -191,3 +201,16 @@ try:
 
 except:
     print("\n\nERROR: something went wrong exporting messages_inbox_analyzed.csv!")
+
+# NEW: generate graphs automatically!
+#       why use excel when pandas do fine
+exportedDF = exportedDF.cumsum()
+plt.figure();
+exportedDF.plot();
+
+
+
+
+
+
+

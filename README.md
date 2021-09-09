@@ -8,6 +8,11 @@ Requires pandas be installed:
 
 ``python messages2count.py <path to file to parse>``
 
+## If using the graph stuff:
+Also requires [matplotlib](https://matplotlib.org/) be installed:
+
+``pip install matplotlib``
+
 (note: providing a file path is optional - you can just drop the messages.csv file into the git repo and the messages2count.py script will choose it by default. this assumes you make a "csv" directory to drop them into.)
 
 There are also a few other scripts you can try:
