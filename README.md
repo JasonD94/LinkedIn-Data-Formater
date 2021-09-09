@@ -30,6 +30,7 @@ Run the script with Idle or another Python interpreter
 View the console for some data, and also check out the auto generated "messages_analyzed.csv" file which should open with spreadsheet software such as Excel and Google Sheets
 
 Here's an example graph that the script will generate too, assuming you have matplotlib installed:
+
 ![](imgs/example_pandas_messages_chart.png)
 
 Example of some graphs I generated with an Excel chart + the pandas generated csv file:
