@@ -202,15 +202,49 @@ try:
 except:
     print("\n\nERROR: something went wrong exporting messages_inbox_analyzed.csv!")
 
+# TODO: refactor this into a function
+# TODO: generate graphs for other data points too
+
 # NEW: generate graphs automatically!
 #       why use excel when pandas do fine
-exportedDF = exportedDF.cumsum()
-plt.figure();
-exportedDF.plot();
+"""
+    Helpful links for researching this:
+    Pandas docs: https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html
+    More pandas docs: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html
+    Matplotlib: https://matplotlib.org/
+    Matplotlib docs: https://matplotlib.org/stable/api/pyplot_summary.html
+    Show graph during runtime: https://stackoverflow.com/a/34354149
+    Style example: https://stackoverflow.com/a/43942018
+    Export to png: https://stackoverflow.com/a/24674675
+"""
+plot = exportedDF.plot(x="MONTH_YEAR", y="COUNT", legend=False, style='.-');
+plt.title("LinkedIn Messages Over Time");
+plt.xlabel("Months");
+plt.ylabel("Message Count per Month");
+
+# Show values on the plot
+# Example used: https://stackoverflow.com/a/59143615
+count = 0
+line = plot.lines[0]
+for x_value, y_value in zip(line.get_xdata(), line.get_ydata()):
+
+    count += 1      # Count is up here, because of the skipping rows code below
+    
+    # Slight modification for my data: idc about values < 10, so why display them?
+    if y_value < 10:
+        continue
+
+    # Also alternate which ones we display, how about just displaying every other one?
+    if (count % 2) == 0:
+        continue
+    
+    label = "{:d}".format(y_value)
+    plot.annotate(label,(x_value, y_value), xytext=(0, 5), 
+                  textcoords="offset points", ha='center', va="bottom")
 
 
-
-
-
+plt.show()
+fig = plot.get_figure()
+fig.savefig("imgs/example_pandas_messages_chart.png")
 
 
