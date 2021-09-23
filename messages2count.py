@@ -235,12 +235,14 @@ for x_value, y_value in zip(line.get_xdata(), line.get_ydata()):
         continue
 
     # Also alternate which ones we display, how about just displaying every other one?
-    if (count % 2) == 0:
+    # Now showing any number > 100 because I want to see big numbers
+    if (count % 2) == 0 and y_value < 100:
         continue
     
     label = "{:d}".format(y_value)
-    plot.annotate(label,(x_value, y_value), xytext=(0, 5), 
-                  textcoords="offset points", ha='center', va="bottom")
+    plot.annotate(label,(x_value, y_value), xytext=(-20, 30), 
+                  textcoords="offset points", ha='center', va="bottom",
+                  arrowprops=dict(arrowstyle="->"))
 
 
 plt.show()
